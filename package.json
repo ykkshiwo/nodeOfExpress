@@ -1,0 +1,14 @@
+{
+  "name": "ykk",
+  "version": "1.0.0",
+  "description": "这是我的express项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yangKangkai",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
