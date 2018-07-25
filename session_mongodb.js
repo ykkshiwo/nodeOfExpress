@@ -3,7 +3,11 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
- 
+// var handlebars = require('express3-handlebars')
+// .create({ defaultLayout:'main' });
+
+// app.engine('handlebars', handlebars.engine);
+// app.set('view engine', 'handlebars');
 // ... 
  
 // create application/json parser
