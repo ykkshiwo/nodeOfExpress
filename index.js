@@ -1,41 +1,85 @@
 var express = require('express');
 var app = express();
+
 app.use(express.static(__dirname + '/public'));
+
 var handlebars = require('express3-handlebars')
 .create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
-
+ 
 var fortunes = [
     "Conquer your fears or they will conquer you.",
     "Rivers need springs.",
     "Do not fear what you don't know.",
     "You will have a pleasant surprise.",
     "Whenever possible, keep it simple.",
-    ];
+];
 
-// app.get('/', function(req, res){
-//     res.type('text/plain');
-//     res.send('Meadowlark Travel');
-// });
-// app.get('/about', function(req, res){
-//     res.type('text/plain');
-//     res.send('About Meadowlark Travel');
-// });
-// // 定制 404 页面
-// app.use(function(req, res){
-//     res.type('text/plain');
-//     res.status(404);
-//     res.send('404 - Not Found');
-// });
-// // 定制 500 页面
-// app.use(function(err, req, res, next){
-//     console.error(err.stack);
-//     res.type('text/plain');
-//     res.status(500);
-//     res.send('500 - Server Error');
-// });
+app.get('/t1', function (req, resp, next) {
+    resp.render('index', {
+        data: {name:'-- 我在测试',id:5},
+        arr:['张三','33','170cm'],
+        objArr:[{
+            id : 5,
+            weight : 110,
+            visibility : false
+        },{
+            id : 9,
+            weight : 120,
+            visibility : true
+        }]
+    });
+});
+
+app.get('/t2', function (req, resp, next) {
+    resp.render('t2', {
+        data: {name:'-- 我在测试',id:5},
+        arr:['张三','33','170cm'],
+        objArr:[{
+            id : 5,
+            weight : 110,
+            visibility : false
+        },{
+            id : 9,
+            weight : 120,
+            visibility : true
+        }]
+    });
+});
+
+app.get('/t3', function (req, resp, next) {
+    resp.render('t3', {
+        data: {name:'-- 我在测试',id:5},
+        arr:['张三','33','170cm'],
+        objArr:[{
+            id : 5,
+            weight : 110,
+            visibility : false
+        },{
+            id : 9,
+            weight : 120,
+            visibility : true
+        }]
+    });
+});
+
+app.get('/t4', function (req, resp, next) {
+    resp.render('t4', {
+        data: {name:'-- 我在测试',id:5},
+        arr:['张三','33','170cm'],
+        objArr:[{
+            id : 5,
+            weight : 110,
+            visibility : false
+        },{
+            id : 9,
+            weight : 120,
+            visibility : true
+        }]
+    });
+});
 
 app.get('/headers', function(req,res){
     res.set('Content-Type','text/plain');

@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(session({
     secret: '12345',
     name: 'testapp',
-    cookie: {maxAge: 80000 },
+    cookie: {maxAge: 300000 },
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({   //创建新的mongodb数据库
@@ -50,26 +50,96 @@ app.use(session({
     })
 }));
 
-app.get('/', function(req, res){
-    res.render('form')
+function checkLogin(req, res, next){
+    if(!req.session.user){
+        res.redirect('/login');
+    }
+    else{
+        next()
+    }
+}
+
+function checkNotLogin(req, res, next){
+    if(req.session.user){
+        console.log('已经登入了，跳转···')
+        res.redirect('/welcome')
+    }
+    else{
+        next()
+    }
+}
+
+app.get('/reg', function(req, res){
+    res.render('form_reg')
 })
 
-app.post('/login', urlencodedParser, function(req, res){
+app.post('/reg', urlencodedParser, function(req, res){
+    console.log("/reg go")
     MongoClient.connect(db_url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("my-website");
         var myobj = { name: req.body.username, password: req.body.password };
-        dbo.collection("users").insertOne(myobj, function(err, res) {
+        dbo.collection("users").insertOne(myobj, function(err, ress) {
             if (err) throw err;
             console.log("文档插入成功");
             db.close();
+            res.redirect('/regsuccess')
         });
     });
-    res.redirect('/welcome')
+})
+
+app.get('/regsuccess', function(req, res){
+    res.send("注册成功")
+})
+
+app.get('/', function(req, res){
+    res.render('form_login')
+})
+
+app.post('/login', checkNotLogin);
+app.post('/login', urlencodedParser, function(req, res){
+    MongoClient.connect(db_url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("my-website");
+         var whereStr = {"name":req.body.username};  // 查询条件
+        dbo.collection("users").find(whereStr).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            if(result[0].password === req.body.password){
+                req.session.user = req.body.username
+                res.redirect('/welcome')
+            }
+            else{
+                res.redirect('/error')
+            }
+            db.close();
+        });
+    });
+})
+
+app.get('/error', function(req, res){
+    res.send("登入失败")
+})
+
+app.get('/login', checkNotLogin);
+app.get('/login', function(req, res){
+    res.redirect('/')
+})
+
+app.get('/logout', function(req, res){
+    req.session.user = null
+    res.send("exit")
 })
 
 app.get('/welcome', function(req, res){
-    res.render('welcome', {name: 'cst'})
+    // res.render('welcome', {name: req.session.user})
+    console.log(req.session.user)
+    res.send(req.session.user)
+})
+
+app.get('/something', checkLogin)
+app.get('/something', function(req, res){
+    res.send("如果你看到了这段文字， 说明你登入了。")
 })
 
 app.get('/awesome', function(req, res){

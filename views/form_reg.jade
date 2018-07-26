@@ -1,0 +1,16 @@
+extends layout
+block content
+  h1 注册界面
+  form(action='/reg', method='POST')
+    fieldset
+      legend Log in
+      p
+        label Nameeee
+        input(name="username", type='text')
+      p
+        label Passworddddd
+        input(name="password", type='text')
+      p
+        button Submit
+      p
+        a(href="/") Go back

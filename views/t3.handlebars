@@ -1,0 +1,10 @@
+<h3>遍历数组内的对象</h3>
+<!--就只能用#each 不能使用简写#objArr.[0]-->
+{{#each objArr.[0]}}
+    {{this}}
+{{/each}}<br/>
+
+{{#with objArr.[1]}}
+   <!-- {{@key}}<br/>-->
+    {{this.id}} -- {{this.weight}}
+{{/with}}

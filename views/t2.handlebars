@@ -1,0 +1,20 @@
+<h3>测试Json</h3>
+{{#each objArr}}
+    <!--
+    this可以省略,其实是{{this.id}}--{{this.weight}}
+    --> 
+
+    {{id}}- - {{weight}}--
+
+    <!--
+    可以将对象中的布尔值当做条件使用
+    注意：if都只接收true,如1==1 是不能使用的(使用registerHelper解决,下面会说)
+         #if else /if 中间else没符号
+    --> 
+
+    {{#if visibility}}
+        这是可见的
+    {{else}}
+        这是不可见的
+    {{/if}}<br/>
+{{/each}}

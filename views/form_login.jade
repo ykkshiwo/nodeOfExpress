@@ -1,5 +1,6 @@
 extends layout
 block content
+  h1 登入界面
   form(action='/login', method='POST')
     fieldset
       legend Log in
@@ -13,3 +14,4 @@ block content
         button Submit
       p
         a(href="/") Go back
+        a(href="/reg") 注册
