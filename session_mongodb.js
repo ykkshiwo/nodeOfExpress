@@ -3,39 +3,26 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
-// var handlebars = require('express3-handlebars')
-// .create({ defaultLayout:'main' });
 
-// app.engine('handlebars', handlebars.engine);
-// app.set('view engine', 'handlebars');
-// ... 
- 
-// create application/json parser
 var jsonParser = bodyParser.json()
- 
-// create application/x-www-form-urlencoded parser
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-// var server = new mongodb.Server('127.0.0.1', 27017)
-// new mongodb.Db('my-website', server).open(function(err, client){
-//     if(err) throw err;
-//     console.log('\033[96m + \033[39m connected to mongodb')
-// })
-
+// 连接mongo数据库
 const MongoClient = require('mongodb').MongoClient;
 const db_url = "mongodb://localhost:27017/my-website";
- 
-// MongoClient.connect(url, function(err, db) {
-//   if (err) throw err;
-//   console.log("\033[96m + \033[39m connected to mongodb");
-//   db.close();
-// });
 
 var app = express();
-app.set('view engine', 'jade')
 
+// 将handlebars设置为模板引擎，因为这个更像模板语言，我喜欢。
+var handlebars = require('express3-handlebars')
+.create({ defaultLayout:'main' });
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+
+// 设置cookie和session，维持用户的登入状态
 app.use(cookieParser());
+// session储存在服务器上，我在这里将session保存在mongo数据库中。
 app.use(session({
     secret: '12345',
     name: 'testapp',
