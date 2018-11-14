@@ -81,6 +81,10 @@ app.get('/t4', function (req, resp, next) {
     });
 });
 
+app.get('/handlebars1', function(req, res){
+    res.render('form_login', {csrf: 'CSRF token goes here'})
+})
+
 app.get('/headers', function(req,res){
     res.set('Content-Type','text/plain');
     var s = '';

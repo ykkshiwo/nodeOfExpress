@@ -50,6 +50,10 @@ app.use(session({
     })
 }));
 
+app.get('/handlebars1', function(req, res){
+    res.render('form_login')
+})
+
 function checkLogin(req, res, next){
     if(!req.session.user){
         res.redirect('/login');

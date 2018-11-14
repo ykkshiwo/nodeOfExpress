@@ -13,6 +13,9 @@ app.use(session({
     saveUninitialized: true,
 }));
  
+app.get('/handlebars1', function(req, res){
+    res.render('form_login')
+})
 
 app.get('/awesome', function(req, res){
     
