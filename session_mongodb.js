@@ -38,7 +38,7 @@ app.use(session({
 }));
 
 app.get('/handlebars1', function(req, res){
-    res.render('form_login')
+    res.render('form_login_new')
 })
 
 function checkLogin(req, res, next){
@@ -61,7 +61,8 @@ function checkNotLogin(req, res, next){
 }
 
 app.get('/reg', function(req, res){
-    res.render('form_reg')
+    console.log("进入注册页面")
+    res.render('form_reg_new')
 })
 
 app.post('/reg', urlencodedParser, function(req, res){
@@ -84,7 +85,7 @@ app.get('/regsuccess', function(req, res){
 })
 
 app.get('/', function(req, res){
-    res.render('form_login')
+    res.render('form_login_new')
 })
 
 app.post('/login', checkNotLogin);
