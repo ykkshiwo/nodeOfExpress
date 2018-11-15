@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(session({
     secret: '12345',
     name: 'testapp',
-    cookie: {maxAge: 300000 },
+    cookie: {maxAge: 300000 }, //保留5分钟
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({   //创建新的mongodb数据库
@@ -136,7 +136,7 @@ app.get('/something', function(req, res){
 app.get('/awesome', function(req, res){
     
     if(req.session.lastPage) {
-        console.log('Last page was: ' + req.session.lastPage + ".");    
+        console.log('Last page was: ' + req.session.lastPage + ".");
     }    
     req.session.lastPage = '/awesome';
     res.send("You're Awesome. And the session expired time is: " + req.session.cookie.maxAge);
