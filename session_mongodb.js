@@ -15,8 +15,7 @@ const db_url = "mongodb://localhost:27017/my-website";
 var app = express();
 
 // 将handlebars设置为模板引擎，因为这个更像模板语言，我喜欢。
-var handlebars = require('express3-handlebars')
-.create({ defaultLayout:'main' });
+var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -38,12 +37,12 @@ app.use(session({
 }));
 
 app.get('/handlebars1', function(req, res){
-    res.render('form_login_new')
+    res.render('form_login_new',{layout: null});
 })
 
 function checkLogin(req, res, next){
     if(!req.session.user){
-        res.redirect('/login');
+        res.redirect('/login',{layout: null});
     }
     else{
         next()
@@ -85,7 +84,7 @@ app.get('/regsuccess', function(req, res){
 })
 
 app.get('/', function(req, res){
-    res.render('form_login_new')
+    res.render('form_login_new',{layout: null})
 })
 
 app.post('/login', checkNotLogin);

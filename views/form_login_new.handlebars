@@ -1,31 +1,47 @@
-<form action='/login', method='POST'>
-    name_login: <input type="text" name="username">
-    password_login: <input name="password" type='text'>
-    <input type="submit" value="登入">
-</form>
-
-{{!-- <script>
-        $(document).ready(function(){
-            $('.newsletterForm').on('submit', function(evt){
-                evt.preventDefault();
-                var action = $(this).attr('action');
-                alert(action)
-                var $container = $(this).closest('.formContainer');
-                $.ajax({
-                    url: action,
-                    type: 'POST',
-					data: $(this).serialize(),
-                    success: function(data){
-                        if(data.success){
-                            $container.html('<h2>Thank you!</h2>');
-                        } else {
-                            $container.html('There was a problem.');
-                        }
-                    },
-                    error: function(){
-                        $container.html('There was a problem.');
-                    }
-                });
-            });
-        });
-</script> --}}
+<!doctype html>
+<html>
+<head>
+    <title>课程系统后台登入界面</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .bg{
+            height: 100%;
+            width: 100%;
+            background-color: blueviolet;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            height: 20%;
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <form style="border: 0px solid rgb(0, 238, 255)" action='/login', method='POST'>
+            <div>
+            账号: <input type="text" name="username">
+            </div>
+            <div>
+            密码: <input name="password" type='password'>
+            </div>
+            <div>
+            <input type="submit" value="登入">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
