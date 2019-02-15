@@ -20,12 +20,12 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 // 设置cookie和session，维持用户的登入状态
-app.use(cookieParser());
+// app.use(cookieParser());
 // session储存在服务器上，我在这里将session保存在mongo数据库中。
 app.use(session({
     secret: '12345',
     name: 'testapp',
-    cookie: {maxAge: 300000 }, //保留5分钟
+    cookie: {maxAge: 1000*600 }, 
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({   //创建新的mongodb数据库
@@ -42,7 +42,7 @@ app.get('/handlebars1', function(req, res){
 
 function checkLogin(req, res, next){
     if(!req.session.user){
-        res.redirect('/login',{layout: null});
+        res.redirect('/login');
     }
     else{
         next()
@@ -97,8 +97,9 @@ app.post('/login', urlencodedParser, function(req, res){
             if (err) throw err;
             console.log(result);
             if(result[0].password === req.body.password){
-                req.session.user = req.body.username
-                res.redirect('/welcome')
+                req.session.user = req.body.username;
+                req.session.auth = req.body.auth;
+                res.redirect('/welcome');
             }
             else{
                 res.redirect('/error')
@@ -130,7 +131,8 @@ app.get('/welcome', function(req, res){
 
 app.get('/something', checkLogin)
 app.get('/something', function(req, res){
-    res.send("如果你看到了这段文字， 说明你登入了。")
+    console.log("请求的session： ", req.session);
+    res.send("如果你看到了这段文字， 说明你登入了。");
 })
 
 app.get('/awesome', function(req, res){
@@ -152,7 +154,7 @@ app.get('/radical', function(req, res){
 
 app.get('/tubular', function(req, res){
     if (req.session.lastPage){
-        console.log("Last page was: " + req.session.lastPage + ".");    
+        console.log("Last page was: " + req.session.lastPage + ".");
     }
 
     req.session.lastPage = '/tubular';
@@ -160,4 +162,4 @@ app.get('/tubular', function(req, res){
 });
 
 
-app.listen(5000);
+app.listen(80);

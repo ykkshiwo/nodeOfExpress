@@ -9,6 +9,8 @@
   "author": "yangKangkai",
   "license": "ISC",
   "dependencies": {
+    "acl": "^0.4.11",
+    "bluebird": "^3.5.3",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
@@ -16,7 +18,7 @@
     "express3-handlebars": "^0.5.2",
     "jade": "^1.11.0",
     "mongodb": "^3.1.1",
-    "mongoose": "^5.2.5"
+    "mongoose": "^5.4.12"
   },
   "devDependencies": {
     "mocha": "^5.2.0"
